@@ -18,6 +18,7 @@ def run():
     plt.figure(figsize = (12,9))
     plt.plot(list(range(T)), x)
     plt.plot(list(range(T)), y)
+    plt.show()
 
 
 def add_next_damped(x, y, alpha, beta, gamma, delta, M):
