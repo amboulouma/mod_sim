@@ -4,8 +4,8 @@ import cv2
 import matplotlib.pyplot as plt
 
 
-class Forest:
-    def __init__(self, height, width, prob_deer_init, prob_fox_init, k, p1, p2, p3, num_runs, fps):
+class ForestCA:
+    def __init__(self, height, width, deer_init, fox_init, k, p1, p2, p3, num_runs, fps):
         self.height = height
         self.width = width
         self.k = k
@@ -20,12 +20,12 @@ class Forest:
         self.predator = 0
         self.cell_types = [self.empty, self.prey, self.predator]
 
-        self.data = np.random.choice(self.cell_types,
-                                     (height, width),
-                                     p=[1 - prob_fox_init - prob_deer_init, prob_deer_init, prob_fox_init])
+        self.data = np.repeat(self.cell_types, [height * width - deer_init - fox_init, fox_init, deer_init])
+        self.data = np.random.permutation(self.data)
+        self.data = self.data.reshape((height, width))
 
-        self.num_foxes = [np.count_nonzero(self.data == self.predator)]
-        self.num_deers = [np.count_nonzero(self.data == self.prey)]
+        self.num_foxes = [fox_init]
+        self.num_deers = [deer_init]
 
     def find_neighbours(self, row_number, column_number):
         neighbours = set()
@@ -75,30 +75,23 @@ class Forest:
 
         self.data = updated_forest
 
-    def run(self):
-        cv2.namedWindow("Visualization", cv2.WINDOW_NORMAL)
-        cv2.resizeWindow("Visualization", self.width * 10, self.height * 10)
-        vis = cv2.applyColorMap(np.array(self.data * 127, dtype=np.uint8), cv2.COLORMAP_HOT)
-        cv2.imshow("Visualization", vis)
-        cv2.waitKey(0)
-        for run in range(self.num_runs):
-            self.update_forest()
+    def run(self, visualization=False):
+        if visualization:
+            cv2.namedWindow("Visualization", cv2.WINDOW_NORMAL)
+            cv2.resizeWindow("Visualization", self.width * 10, self.height * 10)
             vis = cv2.applyColorMap(np.array(self.data * 127, dtype=np.uint8), cv2.COLORMAP_HOT)
             cv2.imshow("Visualization", vis)
-            cv2.waitKey(int(1000/self.fps))
+            cv2.waitKey(0)
+        for run in range(self.num_runs):
+            self.update_forest()
+            if visualization:
+                vis = cv2.applyColorMap(np.array(self.data * 127, dtype=np.uint8), cv2.COLORMAP_HOT)
+                cv2.imshow("Visualization", vis)
+                cv2.waitKey(int(1000/self.fps))
+        return self.num_deers, self.num_foxes
 
     def plot(self):
         plt.figure(figsize=(12, 9))
         plt.plot(list(range(self.num_runs + 1)), self.num_foxes)
         plt.plot(list(range(self.num_runs + 1)), self.num_deers)
         plt.show()
-
-
-if __name__ == '__main__':
-    np.random.seed(1)
-    forest = Forest(height=50, width=100,
-                    prob_fox_init=0.2, prob_deer_init=0.2,
-                    k=1, p1=0.5, p2=0.5, p3=0.5,
-                    num_runs=20, fps=2)
-    forest.run()
-    forest.plot()
