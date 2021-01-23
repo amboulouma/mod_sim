@@ -72,4 +72,5 @@ class ForestDDEM:
         plt.plot(list(range(len(self.num_deers))), self.num_deers)
         plt.plot(list(range(len(self.num_foxes))), self.num_foxes)
         plt.title("DDEM Plot")
+        plt.legend(["Deers", "Foxes"])
         plt.show()

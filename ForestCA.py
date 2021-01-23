@@ -92,7 +92,8 @@ class ForestCA:
 
     def plot(self):
         plt.figure(figsize=(12, 9))
-        plt.plot(list(range(self.num_runs + 1)), self.num_foxes)
         plt.plot(list(range(self.num_runs + 1)), self.num_deers)
+        plt.plot(list(range(self.num_runs + 1)), self.num_foxes)
         plt.title("CA Plot")
+        plt.legend(["Deers", "Foxes"])
         plt.show()
