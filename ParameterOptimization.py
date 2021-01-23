@@ -28,7 +28,7 @@ if __name__ == "__main__":
     forest_ca.plot()
 
     plt.figure(figsize=(12, 9))
-    plt.plot(list(range(20)), y)
-    plt.plot(list(range(20)), x)
+    plt.plot(list(range(21)), y)
+    plt.plot(list(range(21)), x)
 
     plt.legend(["foxes", "deers"])
