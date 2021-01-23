@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     forest_ddem = ForestDDEM(deer_init=4000, fox_init=1000, t=20)
 
-    fit = curve_fit(forest_ddem.run_time_foxes, [i for i in range(0, 21)], foxes_ca)
+    fit = curve_fit(forest_ddem.run_time_foxes, [i for i in range(0, 21)], foxes_ca, bounds=bounds)
 
     alpha_fit, beta_fit, gamma_fit, delta_fit, M_fit = fit[0]
 
