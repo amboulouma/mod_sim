@@ -20,7 +20,7 @@ class ForestCA:
         self.predator = 0
         self.cell_types = [self.empty, self.prey, self.predator]
 
-        self.data = np.repeat(self.cell_types, [height * width - deer_init - fox_init, fox_init, deer_init])
+        self.data = np.repeat(self.cell_types, [height * width - deer_init - fox_init, deer_init, fox_init])
         self.data = np.random.permutation(self.data)
         self.data = self.data.reshape((height, width))
 
@@ -94,4 +94,5 @@ class ForestCA:
         plt.figure(figsize=(12, 9))
         plt.plot(list(range(self.num_runs + 1)), self.num_foxes)
         plt.plot(list(range(self.num_runs + 1)), self.num_deers)
+        plt.title("CA Plot")
         plt.show()
