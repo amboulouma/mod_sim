@@ -67,10 +67,10 @@ class ForestDDEM:
         fit = curve_fit(self.run_time_foxes, [i for i in range(self.t + 1)], deers, bounds=bounds)
         self.alpha, self.beta, self.gamma, self.delta, self.m = fit[0]
 
-    def plot(self):
+    def plot(self, title="DDEM Plot"):
         plt.figure(figsize=(12, 9))
         plt.plot(list(range(len(self.num_deers))), self.num_deers)
         plt.plot(list(range(len(self.num_foxes))), self.num_foxes)
-        plt.title("DDEM Plot")
+        plt.title(title)
         plt.legend(["Deers", "Foxes"])
         plt.show()

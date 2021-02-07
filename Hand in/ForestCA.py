@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 class ForestCA:
-    def __init__(self, height, width, deer_init, fox_init, k, p1, p2, p3, num_runs, fps):
+    def __init__(self, height, width, deer_init, fox_init, k, p1, p2, p3, num_runs, fps=1000):
         self.height = height
         self.width = width
         self.k = k
@@ -87,13 +87,13 @@ class ForestCA:
             if visualization:
                 vis = cv2.applyColorMap(np.array(self.data * 127, dtype=np.uint8), cv2.COLORMAP_HOT)
                 cv2.imshow("Visualization", vis)
-                cv2.waitKey(int(1000/self.fps))
+                cv2.waitKey(int(1000 / self.fps))
         return self.num_deers, self.num_foxes
 
-    def plot(self):
+    def plot(self, title="CA Plot"):
         plt.figure(figsize=(12, 9))
         plt.plot(list(range(self.num_runs + 1)), self.num_deers)
         plt.plot(list(range(self.num_runs + 1)), self.num_foxes)
-        plt.title("CA Plot")
+        plt.title(title)
         plt.legend(["Deers", "Foxes"])
         plt.show()
