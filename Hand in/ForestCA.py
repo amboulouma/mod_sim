@@ -90,10 +90,11 @@ class ForestCA:
                 cv2.waitKey(int(1000 / self.fps))
         return self.num_deers, self.num_foxes
 
-    def plot(self, title="CA Plot"):
+    def plot(self, title="CA Plot", show_plot=True):
         plt.figure(figsize=(12, 9))
         plt.plot(list(range(self.num_runs + 1)), self.num_deers)
         plt.plot(list(range(self.num_runs + 1)), self.num_foxes)
         plt.title(title)
         plt.legend(["Deers", "Foxes"])
-        plt.show()
+        if show_plot:
+            plt.show()

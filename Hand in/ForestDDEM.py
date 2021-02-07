@@ -62,15 +62,31 @@ class ForestDDEM:
     def fit_to_foxes(self, foxes, bounds):
         fit = curve_fit(self.run_time_foxes, [i for i in range(self.t + 1)], foxes, bounds=bounds)
         self.alpha, self.beta, self.gamma, self.delta, self.m = fit[0]
+        print("\nFit to foxes:")
+        print(f"alpha: {self.alpha}")
+        print(f"beta: {self.beta}")
+        print(f"gamma: {self.gamma}")
+        print(f"delta: {self.delta}")
+        print(f"M: {self.m}")
 
     def fit_to_deers(self, deers, bounds):
-        fit = curve_fit(self.run_time_foxes, [i for i in range(self.t + 1)], deers, bounds=bounds)
+        fit = curve_fit(self.run_time_deers, [i for i in range(self.t + 1)], deers, bounds=bounds)
         self.alpha, self.beta, self.gamma, self.delta, self.m = fit[0]
+        print("\nFit to deers:")
+        print(f"alpha: {self.alpha}")
+        print(f"beta: {self.beta}")
+        print(f"gamma: {self.gamma}")
+        print(f"delta: {self.delta}")
+        print(f"M: {self.m}")
 
-    def plot(self, title="DDEM Plot"):
-        plt.figure(figsize=(12, 9))
+    def plot(self, title="DDEM Plot", new_window=True):
+        if new_window:
+            plt.figure(figsize=(12, 9))
         plt.plot(list(range(len(self.num_deers))), self.num_deers)
         plt.plot(list(range(len(self.num_foxes))), self.num_foxes)
         plt.title(title)
-        plt.legend(["Deers", "Foxes"])
+        if new_window:
+            plt.legend(["Deers", "Foxes"])
+        else:
+            plt.legend(["Deers CA", "Foxes CA", "Deers DE", "Foxes DE"])
         plt.show()
