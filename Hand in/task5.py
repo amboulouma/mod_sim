@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     
     # Fit to foxes
-    bounds = ((0, 0, 0, 0, 5000), (5 * 10 ** -7, 10 ** -4, 10 ** -6, 10 ** -4, 10 ** 6))
+    bounds = ((0, 0, 0, 0, 5000), (10 ** -7, 10 ** -4, 10 ** -6, 10 ** -4, 10 ** 6))
     
     forest_ddem.fit_to_foxes(foxes=foxes, bounds=bounds)
 
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     
 
     # Fit to deers
-    bounds = ((0, 0, 0, 0, 5000), (10 ** -7, 10 ** -4, 10 ** -6, 10 ** -4, 10 ** 6))
+    bounds = ((0, 0, 0, 0, 5000), (5 * 10 ** -7, 10 ** -4, 10 ** -6, 10 ** -4, 10 ** 6))
 
     forest_ddem.fit_to_deers(deers=deers, bounds=bounds)
 
